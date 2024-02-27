@@ -7,5 +7,7 @@ passo 3: Clonar o repositorio para sua maquina.
 passo 4: Para executar o projeto basta rodar os seguintes comandos.
         
 ### Executar localmente (minha maquina)
-'robot -d tests/results tests/TestCases.robot'
+'robot -d tests/results tests/TestCases.robot' para rodar todos os cenarios
+'robot -d tests/results -i login tests/TestCases.robot' para rodar os cenarios de login
+'robot -d tests/results -i compra tests/TestCases.robot' para rodar os cenarios de pedido
         
