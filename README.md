@@ -1,13 +1,40 @@
-# Projeto consiste em realizar login e fechar um pedido no site Sauce Demo (https://www.saucedemo.com/).
-## Pré-requisito: possuir Python e o Robot Framework instalado.
-### Passo a passo para a execução:
-passo 1: Realizar a instalação do Python (https://www.python.org/downloads/).
-passo 2: Realizar a instalação do Robot Framework (https://robotframework.org/).
-passo 3: Clonar o repositorio para sua maquina.
-passo 4: Para executar o projeto basta rodar os seguintes comandos.
-        
-### Executar localmente (minha maquina)
-'robot -d tests/results tests/TestCases.robot' para rodar todos os cenarios
-'robot -d tests/results -i login tests/TestCases.robot' para rodar os cenarios de login
-'robot -d tests/results -i compra tests/TestCases.robot' para rodar os cenarios de pedido
-        
+<h1 align="center">QA Web Test Automation</h1>
+<!-- # QA Web Test Automation -->
+<h1 align="center">
+    <a href="<https://robotframework.org/>">Robot Framework 🤖</a>
+</h1>
+<p align="center">Este projeto consiste em uma suíte de testes automatizados desenvolvidos utilizando o Robot Framework</p>
+
+### 🛠 Tecnologias
+As seguintes ferramentas foram usadas na construção do projeto:
+- [Python](<https://www.python.org/>)
+- [Robot Framework](<https://robotframework.org/>)
+- [Bibliotecas do Robot Framework](<As bibliotecas específicas necessárias para seus testes podem variar. Consulte a documentação do Robot Framework para obter mais informações sobre como instalar bibliotecas.>)
+
+### Certificar que a versão do Python esteja instalada.
+
+### Para usuarios de Mac que estejam com dificuldades para executar os comandos pip ou python adicionar as linha no final do arquivo ~/.bashrc ou ~/.zshrc
+```bash
+- alias pip="pip3"
+```
+```bash
+- alias python="python3"
+```
+- após adicionar as linhas acimas executar o seguinte comando no seu terminal (source ~/.bashrc ou source ~/.zshrc)
+
+### Clone este repositório
+```bash
+- git clone <https://github.com/clinicorp/qa-web-test-automation>
+```
+### Vá para a pasta do projeto (o caminho vai depender muito da sua estrutura de pastas)
+- cd qa-web-test-automation
+
+### Installar os requirements do projeto
+```bash
+pip install -r requirements.txt
+```
+
+### Para executar os cenarios automatizados execute o seguinte comando no terminal
+```bash
+robot tests
+```
