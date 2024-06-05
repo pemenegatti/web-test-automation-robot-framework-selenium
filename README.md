@@ -3,7 +3,7 @@
 <h1 align="center">
     <a href="<https://robotframework.org/>">Robot Framework 🤖</a>
 </h1>
-<p align="center">Este projeto consiste em uma suíte de testes automatizados desenvolvidos utilizando o Robot Framework</p>
+<p align="center">Este projeto consiste em uma suíte de testes automatizados desenvolvidos utilizando o Robot Framework e execuções dos testes no GitHub Actions</p>
 
 ### 🛠 Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:

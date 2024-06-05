@@ -1,8 +1,8 @@
-name: Robot Framework
+name: Robot Framework Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
 

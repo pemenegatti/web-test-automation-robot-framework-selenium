@@ -1,0 +1,4 @@
+CART_ITEM: //div[@class="cart_item"]
+BTN_FINISH: //button[@id="finish"]
+PEDIDO_CONCLUIDO: //div[@id="checkout_complete_container"]
+BTN_VOLTAR_PARA_HOME: //button[@id="back-to-products"]

@@ -1,23 +1,21 @@
 *** Settings ***
-Library          SeleniumLibrary
-Resource         ../config.resource
-
-*** Variables ***
-${LOGIN_URL}    ${URL}
-${USERNAME}              //input[@id="user-name"]
-${PASSWORD}              //input[@id="password"]
-${LOGIN}                 //input[@id="login-button"]
-${SWAG_LABS}             //div[@class="app_logo"]
+Resource         ../common.resource
+Variables        ../locators/login_locator.yaml
 
 *** Keywords ***
-Acessar site Sauce Demo
-    Go To    ${LOGIN_URL}
+Que esteja na tela de login
+    Go To    ${BASE_URL}
 
-Preencher login e senha
+Que esteja logado no site Sauce Demo
+    Que esteja na tela de login
+    Preencho as informacoes de login
+    Login e realizado
+
+Preencho as informacoes de login
     Input Text    ${USERNAME}    standard_user
     Input Text    ${PASSWORD}    secret_sauce
 
-Realizar login
+Login e realizado
     Click Button                     ${LOGIN}
     Wait Until Element Is Visible    ${SWAG_LABS}
     Sleep    1

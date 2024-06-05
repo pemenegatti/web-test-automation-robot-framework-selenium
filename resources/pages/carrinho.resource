@@ -1,13 +1,9 @@
 *** Settings ***
-Library          SeleniumLibrary
-Resource         ../config.resource
-
-*** Variables ***
-${CART_LIST}                                      //div[@class="cart_list"]
-${BTN_CHECKOUT}                                   //button[@id="checkout"]
+Resource         ../common.resource
+Variables        ../locators/carrinho_locator.yaml
 
 *** Keywords ***
-Ir para o checkout
+Vou para pagina de checkout
     Wait Until Page Contains Element                      ${CART_LIST}
     Sleep    1
     Click Button                                          ${BTN_CHECKOUT} 

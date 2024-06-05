@@ -1,0 +1,12 @@
+CONFIG:
+  DEFAULT:
+    EXECUTION_ENVIRONMENT: HML
+    HEADLESS: True # True or False
+  PROD:
+    BASE_URL: https://www.saucedemo.com/
+    BROWSER: chrome
+    TIMEOUT:  15
+  HML:
+    BASE_URL: https://www.saucedemo.com/
+    BROWSER: chrome
+    TIMEOUT:  20

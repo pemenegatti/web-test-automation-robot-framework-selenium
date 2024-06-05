@@ -1,0 +1,5 @@
+HEADER_SECONDARY: //span[contains(text(),'Your Information')]
+FIRST_NAME: //input[@id="first-name"]
+LAST_NAME: //input[@id="last-name"]
+POSTAL_CODE: //input[@id="postal-code"]
+BTN_CONTINUE: //input[@id="continue"]
