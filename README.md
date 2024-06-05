@@ -24,7 +24,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Clone este repositório
 ```bash
-- git clone <https://github.com/clinicorp/qa-web-test-automation>
+- git clone <git@github.com:pemenegatti/web-test-automation-robot-framework-selenium.git>
 ```
 ### Vá para a pasta do projeto (o caminho vai depender muito da sua estrutura de pastas)
 - cd qa-web-test-automation
