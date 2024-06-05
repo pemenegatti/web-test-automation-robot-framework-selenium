@@ -2,7 +2,7 @@ name: Robot Framework
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
   workflow_dispatch:
 
@@ -32,7 +32,7 @@ jobs:
             
         - name: Run tests
           run: |
-            robot -d tests/results tests
+            robot -d tests/results -v BROWSER:chrome tests
         
         - name: Robot Reporter
           uses: joonvena/robotframework-reporter-action@v2.4
@@ -73,7 +73,7 @@ jobs:
             
         - name: Run tests
           run: |
-            robot -d tests/results tests
+            robot -d tests/results -v BROWSER:firefox tests
         
         - name: Robot Reporter
           uses: joonvena/robotframework-reporter-action@v2.4
