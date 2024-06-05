@@ -45,7 +45,7 @@ jobs:
           uses: actions/upload-artifact@v4.3.3
           if: always()
           with:
-            name: Test Report
+            name: Chrome Report
             path: tests/results
 
     Firefox:
@@ -61,10 +61,10 @@ jobs:
           with:
             python-version: '3.11'
 
-        - name: Setup Chrome
+        - name: Setup Firefox
           uses: browser-actions/setup-firefox@v1.5.1
           with:
-            firefox-version: stable
+            firefox-version: latest-esr
 
         - name: Install dependencies
           run: |
@@ -86,5 +86,5 @@ jobs:
           uses: actions/upload-artifact@v4.3.3
           if: always()
           with:
-            name: Test Report
+            name: Firefox Report
             path: tests/results
