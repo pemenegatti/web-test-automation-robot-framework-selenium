@@ -15,16 +15,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Para usuarios de Mac que estejam com dificuldades para executar os comandos pip ou python adicionar as linha no final do arquivo ~/.bashrc ou ~/.zshrc
 ```bash
-- alias pip="pip3"
+alias pip="pip3"
 ```
 ```bash
-- alias python="python3"
+alias python="python3"
 ```
 - após adicionar as linhas acimas executar o seguinte comando no seu terminal (source ~/.bashrc ou source ~/.zshrc)
 
 ### Clone este repositório
 ```bash
-- git clone git@github.com:pemenegatti/web-test-automation-robot-framework-selenium.git
+git clone git@github.com:pemenegatti/web-test-automation-robot-framework-selenium.git
 ```
 ### Vá para a pasta do projeto (o caminho vai depender muito da sua estrutura de pastas)
 - cd qa-web-test-automation
