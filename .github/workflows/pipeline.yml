@@ -30,10 +30,10 @@ jobs:
             python -m pip install --upgrade pip
             pip install -r requirements.txt
         
-        - name: Notify Google Chat - Start
+        - name: Notify Slack - Start
           run: |
             curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "🚀 Pipeline de testes começou!"}' \
+            -d '{"text": "🚀 Pipeline de testes no Chrome começou!"}' \
             ${{ secrets.SLACK_WEBHOOK_URL }}
 
         - name: Run tests
@@ -54,51 +54,65 @@ jobs:
             name: Chrome Report
             path: tests/results
 
-        - name: Notify Google Chat - End
+        - name: Notify Slack - End
           if: always()
           run: |
             REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "✅ Pipeline de testes finalizado! [Veja o relatório]('"$REPORT_URL"')"}' \
+            -d '{"text": "✅ Pipeline de testes no Chrome finalizado! [Veja o relatório]('"$REPORT_URL"')"}' \
             ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    # Firefox:
-    #     runs-on: ubuntu-latest
-    #     continue-on-error: true
+    Firefox:
+        runs-on: ubuntu-latest
+        continue-on-error: true
 
-    #     steps:
-    #     - name: Get Code
-    #       uses: actions/checkout@v4
+        steps:
+        - name: Get Code
+          uses: actions/checkout@v4
 
-    #     - name: Set up Python
-    #       uses: actions/setup-python@v5
-    #       with:
-    #         python-version: '3.11'
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
 
-    #     - name: Setup Firefox
-    #       uses: browser-actions/setup-firefox@v1.5.1
-    #       with:
-    #         firefox-version: latest-esr
+        - name: Setup Firefox
+          uses: browser-actions/setup-firefox@v1.5.1
+          with:
+            firefox-version: latest-esr
 
-    #     - name: Install dependencies
-    #       run: |
-    #         python -m pip install --upgrade pip
-    #         pip install -r requirements.txt
-            
-    #     - name: Run tests
-    #       run: |
-    #         robot -d tests/results -v BROWSER:firefox tests
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
         
-    #     - name: Robot Reporter
-    #       uses: joonvena/robotframework-reporter-action@v2.4
-    #       if: always()
-    #       with:
-    #         gh_access_token: ${{secrets.GITHUB_TOKEN}}
-    #         report_path: tests/results
+        - name: Notify Slack - Start
+          run: |
+            curl -X POST -H 'Content-Type: application/json' \
+            -d '{"text": "🚀 Pipeline de testes no Firefox começou!"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+        - name: Run tests
+          run: |
+            robot -d tests/results -v BROWSER:firefox tests
         
-    #     - name: Upload Report
-    #       uses: actions/upload-artifact@v4.3.3
-    #       if: always()
-    #       with:
-    #         name: Firefox Report
-    #         path: tests/results
+        - name: Robot Reporter
+          uses: joonvena/robotframework-reporter-action@v2.4
+          if: always()
+          with:
+            gh_access_token: ${{secrets.GITHUB_TOKEN}}
+            report_path: tests/results
+        
+        - name: Upload Report
+          uses: actions/upload-artifact@v4.3.3
+          if: always()
+          with:
+            name: Firefox Report
+            path: tests/results
+
+        - name: Notify Slack - End
+          if: always()
+          run: |
+            REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            curl -X POST -H 'Content-Type: application/json' \
+            -d '{"text": "✅ Pipeline de testes no Firefox finalizado! [Veja o relatório]('"$REPORT_URL"')"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
