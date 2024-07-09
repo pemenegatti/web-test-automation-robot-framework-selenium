@@ -34,7 +34,7 @@ jobs:
           run: |
             curl -X POST -H 'Content-Type: application/json' \
             -d '{"text": "🚀 Pipeline de testes começou!"}' \
-            ${{ secrets.GCHAT_WEBHOOK }}
+            ${{ secrets.SLACK_WEBHOOK_URL }}
 
         - name: Run tests
           run: |
@@ -60,7 +60,7 @@ jobs:
             REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             curl -X POST -H 'Content-Type: application/json' \
             -d '{"text": "✅ Pipeline de testes finalizado! [Veja o relatório]('"$REPORT_URL"')"}' \
-            ${{ secrets.GCHAT_WEBHOOK }}
+            ${{ secrets.SLACK_WEBHOOK_URL }}
 
     # Firefox:
     #     runs-on: ubuntu-latest
