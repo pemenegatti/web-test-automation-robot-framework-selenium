@@ -33,7 +33,7 @@ jobs:
         - name: Notify Slack - Start
           run: |
             curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@aqui 🚀 Pipeline de testes no Chrome iniciado por '${{ github.actor }}' começou!"}' \
+            -d '{"text": "@canal 🚀 Pipeline de testes no Chrome iniciado por '${{ github.actor }}' começou!"}' \
             ${{ secrets.SLACK_WEBHOOK_URL }}
 
         - name: Run tests
@@ -59,7 +59,7 @@ jobs:
           run: |
             REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@aqui ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado! <'"$REPORT_URL"'|Veja o relatório>"}' \
+            -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado! <'"$REPORT_URL"'|Veja o relatório>"}' \
             ${{ secrets.SLACK_WEBHOOK_URL }}
 
     Firefox:
