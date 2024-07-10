@@ -62,6 +62,7 @@ jobs:
           echo "Test result: $test_result"
 
       - name: Debug Test Result
+        if: always()
         run: |
           echo "Test result from analyze-results step: ${{ steps.analyze-results.outputs.test_result }}"
 
@@ -158,6 +159,7 @@ jobs:
           echo "Test result: $test_result"
 
       - name: Debug Test Result
+        if: always()
         run: |
           echo "Test result from analyze-results step: ${{ steps.analyze-results.outputs.test_result }}"
 
