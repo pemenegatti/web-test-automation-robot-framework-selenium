@@ -79,7 +79,7 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: steps.analyze-results.outputs.test_result == 'success'
+        if: ${{ steps.analyze-results.outputs.test_result == 'success' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -87,7 +87,7 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Partial Failure
-        if: steps.analyze-results.outputs.test_result == 'partial_failure'
+        if: ${{ steps.analyze-results.outputs.test_result == 'partial_failure' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -95,7 +95,7 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Complete Failure
-        if: steps.analyze-results.outputs.test_result == 'complete_failure'
+        if: $${{ steps.analyze-results.outputs.test_result == 'complete_failure' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -174,7 +174,7 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: steps.analyze-results.outputs.test_result == 'success'
+        if: ${{ steps.analyze-results.outputs.test_result == 'success' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -182,7 +182,7 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Partial Failure
-        if: steps.analyze-results.outputs.test_result == 'partial_failure'
+        if: ${{ steps.analyze-results.outputs.test_result == 'partial_failure' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -190,7 +190,7 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Complete Failure
-        if: steps.analyze-results.outputs.test_result == 'complete_failure'
+        if: ${{ steps.analyze-results.outputs.test_result == 'complete_failure' }}
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
