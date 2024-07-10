@@ -7,112 +7,164 @@ on:
   workflow_dispatch:
 
 jobs:
-    Chrome:
-        runs-on: ubuntu-latest
-        continue-on-error: true
+  Chrome:
+    runs-on: ubuntu-latest
+    continue-on-error: true
 
-        steps:
-        - name: Get Code
-          uses: actions/checkout@v4
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
 
-        - name: Set up Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-        - name: Setup Chrome
-          uses: browser-actions/setup-chrome@v1
-          with:
-            chrome-version: stable
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
 
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-        
-        - name: Notify Slack - Start
-          run: |
-            curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@canal 🚀 Pipeline de testes no Chrome iniciado por '${{ github.actor }}' começou!"}' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-        - name: Run tests
-          run: |
-            robot -d tests/results -v BROWSER:chrome tests
-        
-        - name: Robot Reporter
-          uses: joonvena/robotframework-reporter-action@v2.4
-          if: always()
-          with:
-            gh_access_token: ${{secrets.GITHUB_TOKEN}}
-            report_path: tests/results
-        
-        - name: Upload Report
-          uses: actions/upload-artifact@v4.3.3
-          if: always()
-          with:
-            name: Chrome Report
-            path: tests/results
+      - name: Notify Slack - Start
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal 🚀 Pipeline de testes no Chrome iniciado por '${{ github.actor }}' começou!"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        - name: Notify Slack - End
-          if: always()
-          run: |
-            REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado! <'"$REPORT_URL"'|Veja o relatório>"}' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Run tests
+        id: run-tests
+        run: |
+          robot -d tests/results -v BROWSER:chrome tests
 
-    Firefox:
-        runs-on: ubuntu-latest
-        continue-on-error: true
+      - name: Analyze Test Results
+        id: analyze-results
+        run: |
+          if grep -q 'FAIL' tests/results/output.xml; then
+            echo "partial_failure=true" >> $GITHUB_ENV
+          else
+            echo "partial_failure=false" >> $GITHUB_ENV
+          fi
 
-        steps:
-        - name: Get Code
-          uses: actions/checkout@v4
+      - name: Robot Reporter
+        uses: joonvena/robotframework-reporter-action@v2.4
+        if: always()
+        with:
+          gh_access_token: ${{secrets.GITHUB_TOKEN}}
+          report_path: tests/results
 
-        - name: Set up Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.11'
+      - name: Upload Report
+        uses: actions/upload-artifact@v4.3.3
+        if: always()
+        with:
+          name: Chrome Report
+          path: tests/results
 
-        - name: Setup Firefox
-          uses: browser-actions/setup-firefox@v1.5.1
-          with:
-            firefox-version: latest-esr
+      - name: Notify Slack - Success
+        if: success() && env.partial_failure == 'false'
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-        
-        - name: Notify Slack - Start
-          run: |
-            curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@canal 🚀 Pipeline de testes no Firefox iniciado por '${{ github.actor }}' começou!"}' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Notify Slack - Partial Failure
+        if: success() && env.partial_failure == 'true'
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ⚠️ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        - name: Run tests
-          run: |
-            robot -d tests/results -v BROWSER:firefox tests
-        
-        - name: Robot Reporter
-          uses: joonvena/robotframework-reporter-action@v2.4
-          if: always()
-          with:
-            gh_access_token: ${{secrets.GITHUB_TOKEN}}
-            report_path: tests/results
-        
-        - name: Upload Report
-          uses: actions/upload-artifact@v4.3.3
-          if: always()
-          with:
-            name: Firefox Report
-            path: tests/results
+      - name: Notify Slack - Failure
+        if: failure()
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        - name: Notify Slack - End
-          if: always()
-          run: |
-            REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            curl -X POST -H 'Content-Type: application/json' \
-            -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado! <'"$REPORT_URL"'|Veja o relatório>"}' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+  Firefox:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Firefox
+        uses: browser-actions/setup-firefox@v1.5.1
+        with:
+          firefox-version: latest-esr
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Notify Slack - Start
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal 🚀 Pipeline de testes no Firefox iniciado por '${{ github.actor }}' começou!"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Run tests
+        id: run-tests
+        run: |
+          robot -d tests/results -v BROWSER:firefox tests
+
+      - name: Analyze Test Results
+        id: analyze-results
+        run: |
+          if grep -q 'FAIL' tests/results/output.xml; then
+            echo "partial_failure=true" >> $GITHUB_ENV
+          else
+            echo "partial_failure=false" >> $GITHUB_ENV
+          fi
+
+      - name: Robot Reporter
+        uses: joonvena/robotframework-reporter-action@v2.4
+        if: always()
+        with:
+          gh_access_token: ${{secrets.GITHUB_TOKEN}}
+          report_path: tests/results
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4.3.3
+        if: always()
+        with:
+          name: Firefox Report
+          path: tests/results
+
+      - name: Notify Slack - Success
+        if: success() && env.partial_failure == 'false'
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack - Partial Failure
+        if: success() && env.partial_failure == 'true'
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ⚠️ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack - Failure
+        if: failure()
+        run: |
+          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -X POST -H 'Content-Type: application/json' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
