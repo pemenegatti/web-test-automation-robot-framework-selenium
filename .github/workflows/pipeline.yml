@@ -48,16 +48,21 @@ jobs:
           total_tests=$(grep -o 'total tests="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
           passed_tests=$(grep -o 'pass="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
           failed_tests=$(grep -o 'fail="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
-          echo "total_tests=$total_tests" >> $GITHUB_ENV
-          echo "passed_tests=$passed_tests" >> $GITHUB_ENV
-          echo "failed_tests=$failed_tests" >> $GITHUB_ENV
+          echo "total_tests=$total_tests"
+          echo "passed_tests=$passed_tests"
+          echo "failed_tests=$failed_tests"
           if [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -gt 0 ]; then
-            echo "test_result=partial_failure" >> $GITHUB_ENV
+            echo "::set-output name=test_result::partial_failure"
           elif [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -eq 0 ]; then
-            echo "test_result=complete_failure" >> $GITHUB_ENV
+            echo "::set-output name=test_result::complete_failure"
           else
-            echo "test_result=success" >> $GITHUB_ENV
+            echo "::set-output name=test_result::success"
           fi
+          echo "Test result: $test_result"
+
+      - name: Debug Test Result
+        run: |
+          echo "Test result from analyze-results step: ${{ steps.analyze-results.outputs.test_result }}"
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -138,16 +143,21 @@ jobs:
           total_tests=$(grep -o 'total tests="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
           passed_tests=$(grep -o 'pass="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
           failed_tests=$(grep -o 'fail="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
-          echo "total_tests=$total_tests" >> $GITHUB_ENV
-          echo "passed_tests=$passed_tests" >> $GITHUB_ENV
-          echo "failed_tests=$failed_tests" >> $GITHUB_ENV
+          echo "total_tests=$total_tests"
+          echo "passed_tests=$passed_tests"
+          echo "failed_tests=$failed_tests"
           if [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -gt 0 ]; then
-            echo "test_result=partial_failure" >> $GITHUB_ENV
+            echo "::set-output name=test_result::partial_failure"
           elif [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -eq 0 ]; then
-            echo "test_result=complete_failure" >> $GITHUB_ENV
+            echo "::set-output name=test_result::complete_failure"
           else
-            echo "test_result=success" >> $GITHUB_ENV
+            echo "::set-output name=test_result::success"
           fi
+          echo "Test result: $test_result"
+
+      - name: Debug Test Result
+        run: |
+          echo "Test result from analyze-results step: ${{ steps.analyze-results.outputs.test_result }}"
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
