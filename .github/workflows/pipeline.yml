@@ -44,10 +44,19 @@ jobs:
       - name: Analyze Test Results
         id: analyze-results
         run: |
-          if grep -q 'FAIL' tests/results/output.xml; then
-            echo "partial_failure=true" >> $GITHUB_ENV
+          # Conta os testes
+          total_tests=$(grep -o 'total tests="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          passed_tests=$(grep -o 'pass="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          failed_tests=$(grep -o 'fail="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          echo "total_tests=$total_tests" >> $GITHUB_ENV
+          echo "passed_tests=$passed_tests" >> $GITHUB_ENV
+          echo "failed_tests=$failed_tests" >> $GITHUB_ENV
+          if [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -gt 0 ]; then
+            echo "test_result=partial_failure" >> $GITHUB_ENV
+          elif [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -eq 0 ]; then
+            echo "test_result=complete_failure" >> $GITHUB_ENV
           else
-            echo "partial_failure=false" >> $GITHUB_ENV
+            echo "test_result=success" >> $GITHUB_ENV
           fi
 
       - name: Robot Reporter
@@ -65,7 +74,7 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: success() && env.partial_failure == 'false'
+        if: env.test_result == 'success'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -73,19 +82,19 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Partial Failure
-        if: success() && env.partial_failure == 'true'
+        if: env.test_result == 'partial_failure'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
           -d '{"text": "@canal ⚠️ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Notify Slack - Failure
-        if: failure()
+      - name: Notify Slack - Complete Failure
+        if: env.test_result == 'complete_failure'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou completamente! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
   Firefox:
@@ -125,10 +134,19 @@ jobs:
       - name: Analyze Test Results
         id: analyze-results
         run: |
-          if grep -q 'FAIL' tests/results/output.xml; then
-            echo "partial_failure=true" >> $GITHUB_ENV
+          # Conta os testes
+          total_tests=$(grep -o 'total tests="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          passed_tests=$(grep -o 'pass="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          failed_tests=$(grep -o 'fail="[^"]*"' tests/results/output.xml | sed 's/.*="//;s/".*//')
+          echo "total_tests=$total_tests" >> $GITHUB_ENV
+          echo "passed_tests=$passed_tests" >> $GITHUB_ENV
+          echo "failed_tests=$failed_tests" >> $GITHUB_ENV
+          if [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -gt 0 ]; then
+            echo "test_result=partial_failure" >> $GITHUB_ENV
+          elif [ "$failed_tests" -gt 0 ] && [ "$passed_tests" -eq 0 ]; then
+            echo "test_result=complete_failure" >> $GITHUB_ENV
           else
-            echo "partial_failure=false" >> $GITHUB_ENV
+            echo "test_result=success" >> $GITHUB_ENV
           fi
 
       - name: Robot Reporter
@@ -146,7 +164,7 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: success() && env.partial_failure == 'false'
+        if: env.test_result == 'success'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
@@ -154,17 +172,17 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Partial Failure
-        if: success() && env.partial_failure == 'true'
+        if: env.test_result == 'partial_failure'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
           -d '{"text": "@canal ⚠️ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Notify Slack - Failure
-        if: failure()
+      - name: Notify Slack - Complete Failure
+        if: env.test_result == 'complete_failure'
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou completamente! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
