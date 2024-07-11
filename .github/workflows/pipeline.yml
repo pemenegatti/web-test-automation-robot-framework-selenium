@@ -37,19 +37,8 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Run tests
-        id: run-tests
         run: |
           robot -d tests/results -v BROWSER:chrome tests
-
-      - name: Analyze Test Results
-        if: always()
-        id: analyze-results
-        run: |
-          if grep -q 'FAIL' tests/results/output.xml; then
-            echo "partial_failure=true" >> $GITHUB_ENV
-          else
-            echo "partial_failure=false" >> $GITHUB_ENV
-          fi
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -66,19 +55,11 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: success() && steps.analyze-results.outputs.partial_failure == 'false'
+        if: success()
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
           -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack - Partial Failure
-        if: success() && steps.analyze-results.outputs.partial_failure == 'true'
-        run: |
-          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ⚠️ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Failure
@@ -119,19 +100,8 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Run tests
-        id: run-tests
         run: |
           robot -d tests/results -v BROWSER:firefox tests
-
-      - name: Analyze Test Results
-        if: always()
-        id: analyze-results
-        run: |
-          if grep -q 'FAIL' tests/results/output.xml; then
-            echo "partial_failure=true" >> $GITHUB_ENV
-          else
-            echo "partial_failure=false" >> $GITHUB_ENV
-          fi
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -148,19 +118,11 @@ jobs:
           path: tests/results
 
       - name: Notify Slack - Success
-        if: success() && steps.analyze-results.outputs.partial_failure == 'false'
+        if: success()
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
           -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack - Partial Failure
-        if: success() && steps.analyze-results.outputs.partial_failure == 'true'
-        run: |
-          REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ⚠️ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com algumas falhas! <'"$REPORT_URL"'|Veja o relatório>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Failure
