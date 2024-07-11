@@ -1,2 +1,2 @@
 ADD_TO_CART: //button[@id="add-to-cart-sauce-labs-backpack"]
-GO_TO_CART: //div[@id="shopping_cart_container123"]
+GO_TO_CART: //div[@id="shopping_cart_container"]
