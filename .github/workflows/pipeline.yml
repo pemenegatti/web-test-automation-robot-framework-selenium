@@ -37,8 +37,10 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Run tests
+        env:
+          BROWSER: 'chrome'
         run: |
-          robot -d tests/results -v BROWSER:chrome tests
+          robot -d tests/results -v BROWSER:${{ env.BROWSER }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -100,8 +102,10 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Run tests
+        env:
+          BROWSER: 'firefox'
         run: |
-          robot -d tests/results -v BROWSER:firefox tests
+          robot -d tests/results -v BROWSER:${{ env.BROWSER }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
