@@ -40,7 +40,7 @@ jobs:
         env:
           BROWSER: 'chrome'
         run: |
-          robot -d tests/results -v BROWSER:${{ env.BROWSER }} tests
+          robot -d tests/results tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -105,7 +105,7 @@ jobs:
         env:
           BROWSER: 'firefox'
         run: |
-          robot -d tests/results -v BROWSER:${{ env.BROWSER }} tests
+          robot -d tests/results tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
