@@ -1,3 +1,4 @@
+import os
 import xml.etree.ElementTree as ET
 import psycopg2
 
@@ -19,11 +20,11 @@ def process_robot_report(xml_file):
 
 def insert_test_results(test_results):
     conn = psycopg2.connect(
-        dbname="env.DB_NAME",
-        user="env.DB_USER",
-        password="env.DB_PASSWORD",
-        host="env.DB_HOST",
-        port="env.DB_PORT"
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT')
     )
     
     cursor = conn.cursor()
