@@ -10,6 +10,13 @@ jobs:
   Chrome:
     runs-on: ubuntu-latest
     continue-on-error: true
+    
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     steps:
       - name: Get Code
@@ -41,6 +48,10 @@ jobs:
           BROWSER: 'chrome'
         run: |
           robot -d tests/results tests
+      
+      - name: Store Test Results in Database
+        run: |
+          python save_test_results.py
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -75,6 +86,13 @@ jobs:
   Firefox:
     runs-on: ubuntu-latest
     continue-on-error: true
+    
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     steps:
       - name: Get Code
@@ -106,6 +124,10 @@ jobs:
           BROWSER: 'firefox'
         run: |
           robot -d tests/results tests
+
+      - name: Store Test Results in Database
+        run: |
+          python save_test_results.py
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
