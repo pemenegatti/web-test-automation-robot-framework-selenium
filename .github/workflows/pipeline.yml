@@ -80,6 +80,7 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Store Test Results in Database
+        if: always()
         run: |
           python save_test_results.py
 
@@ -156,5 +157,6 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Store Test Results in Database
+        if: always()
         run: |
           python save_test_results.py
