@@ -48,10 +48,6 @@ jobs:
           BROWSER: 'chrome'
         run: |
           robot -d tests/results tests
-      
-      - name: Store Test Results in Database
-        run: |
-          python save_test_results.py
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -72,7 +68,7 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Failure
@@ -80,8 +76,12 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Store Test Results in Database
+        run: |
+          python save_test_results.py
 
   Firefox:
     runs-on: ubuntu-latest
@@ -125,10 +125,6 @@ jobs:
         run: |
           robot -d tests/results tests
 
-      - name: Store Test Results in Database
-        run: |
-          python save_test_results.py
-
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
         if: always()
@@ -148,7 +144,7 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify Slack - Failure
@@ -156,5 +152,9 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório>"}' \
+          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Store Test Results in Database
+        run: |
+          python save_test_results.py
