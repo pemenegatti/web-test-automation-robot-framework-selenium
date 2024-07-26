@@ -4,7 +4,7 @@ CONFIG:
     HEADLESS: True # True or False
   PROD:
     BASE_URL: https://www.saucedemo.com/
-    BROWSER: chrome
+    BROWSER: firefox
     TIMEOUT:  15
   HML:
     BASE_URL: https://www.saucedemo.com/

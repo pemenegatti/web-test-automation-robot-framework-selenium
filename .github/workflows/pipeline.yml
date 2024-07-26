@@ -45,7 +45,7 @@ jobs:
 
       - name: Run tests
         env:
-          BROWSER: 'chrome'
+          EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
         run: |
           robot -d tests/results tests
 
@@ -79,10 +79,10 @@ jobs:
           -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Store Test Results in Database
-        if: always()
-        run: |
-          python save_test_results.py
+      # - name: Store Test Results in Database
+      #   if: always()
+      #   run: |
+      #     python save_test_results.py
 
   Firefox:
     runs-on: ubuntu-latest
@@ -122,7 +122,7 @@ jobs:
 
       - name: Run tests
         env:
-          BROWSER: 'firefox'
+          EXECUTION_ENVIRONMENT: ${{ secrets.ENV_PROD }}
         run: |
           robot -d tests/results tests
 
@@ -156,7 +156,7 @@ jobs:
           -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Store Test Results in Database
-        if: always()
-        run: |
-          python save_test_results.py
+      # - name: Store Test Results in Database
+      #   if: always()
+      #   run: |
+      #     python save_test_results.py
