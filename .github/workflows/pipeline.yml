@@ -46,6 +46,7 @@ jobs:
       - name: Run tests
         env:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
+          HEADLESS: True
         run: |
           robot -d tests/results tests
 
@@ -123,6 +124,7 @@ jobs:
       - name: Run tests
         env:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_PROD }}
+          HEADLESS: True
         run: |
           robot -d tests/results tests
 

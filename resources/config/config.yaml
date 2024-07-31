@@ -1,7 +1,7 @@
 CONFIG:
   DEFAULT:
     EXECUTION_ENVIRONMENT: HML
-    HEADLESS: True # True or False
+    HEADLESS: False # True or False
   PROD:
     BASE_URL: https://www.saucedemo.com/
     BROWSER: firefox
