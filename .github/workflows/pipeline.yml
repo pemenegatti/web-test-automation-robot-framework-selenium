@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   pull_request:
   workflow_dispatch:
+    inputs:
+      test_tag:
+        description: 'Tag dos cenários de teste a serem executados'
+        required: true
+        default: 'login'  # Tag padrão
 
 jobs:
   Chrome:
@@ -48,7 +53,7 @@ jobs:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
           HEADLESS: 'True'
         run: |
-          robot -d tests/results tests
+          robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -126,7 +131,7 @@ jobs:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_PROD }}
           HEADLESS: 'True'
         run: |
-          robot -d tests/results tests
+          robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
