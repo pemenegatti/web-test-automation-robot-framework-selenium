@@ -6,11 +6,11 @@ on:
     tags: [ login, compra ]
   pull_request:
   workflow_dispatch:
-    # inputs:
-    #   test_tag:
-    #     description: 'Tag dos cenários de teste a serem executados'
-    #     required: true
-    #     default: 'login'  # Tag padrão
+    inputs:
+      test_tag:
+        description: 'Tag dos cenários de teste a serem executados'
+        required: true
+        default: 'login'  # Tag padrão
 
 jobs:
   Chrome:
