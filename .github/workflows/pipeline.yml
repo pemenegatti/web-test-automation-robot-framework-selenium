@@ -3,7 +3,6 @@ name: Robot Framework Test
 on:
   push:
     branches: [ main ]
-    tags: [ login, compra ]
   pull_request:
   workflow_dispatch:
     inputs:
@@ -54,7 +53,7 @@ jobs:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
           HEADLESS: 'True'
         run: |
-          robot -d tests/results --include ${{ github.ref }} tests
+          robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
@@ -132,7 +131,7 @@ jobs:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_PROD }}
           HEADLESS: 'True'
         run: |
-          robot -d tests/results --include ${{ github.ref }} tests
+          robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
 
       - name: Robot Reporter
         uses: joonvena/robotframework-reporter-action@v2.4
