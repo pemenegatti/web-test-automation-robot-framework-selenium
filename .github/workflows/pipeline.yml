@@ -61,7 +61,7 @@ jobs:
           BASE_URL: ${{ github.event.inputs.BASE_URL || secrets.BASE_URL }}
           HEADLESS: 'True'
         run: |
-          if [ -z ${{ github.event.inputs.test_tag }} ]; then
+          if [ -z "${{ github.event.inputs.test_tag }}" ]; then
             echo "Running all tests"
             robot -d tests/results tests
           else
@@ -146,7 +146,7 @@ jobs:
           BASE_URL: ${{ github.event.inputs.BASE_URL || secrets.BASE_URL }}
           HEADLESS: 'True'
         run: |
-          if [ -z ${{ github.event.inputs.test_tag }} ]; then
+          if [ -z "${{ github.event.inputs.test_tag }}" ]; then
             echo "Running all tests"
             robot -d tests/results tests
           else
