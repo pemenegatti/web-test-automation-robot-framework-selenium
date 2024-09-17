@@ -3,13 +3,16 @@ name: Robot Framework Test
 on:
   push:
     branches: [ main ]
-  pull_request:
   workflow_dispatch:
     inputs:
       BASE_URL:
         description: 'Base URL to run the tests against'
         required: true
         default: 'https://www.saucedemo.com/'
+      EXECUTION_ENVIRONMENT:
+        description: 'Ambiente de Execução HML ou PROD'
+        required: true
+        default: 'HML'
       test_tag:
         description: 'Tag dos cenários de teste a serem executados'
         required: true
@@ -54,7 +57,7 @@ jobs:
 
       - name: Run tests
         env:
-          EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
+          EXECUTION_ENVIRONMENT: ${{ github.event.inputs.EXECUTION_ENVIRONMENT || secrets.ENV_HML }}
           BASE_URL: ${{ github.event.inputs.BASE_URL || secrets.BASE_URL }}
           HEADLESS: 'True'
         run: |
