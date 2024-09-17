@@ -38,3 +38,17 @@ pip install -r requirements.txt
 ```bash
 robot tests
 ```
+
+### 🛠 Branchs do projeto:
+As seguintes Branchs que serão ultilizadas no projeto:
+- main: branch principal (Utilizada para rodar os testes regressivos e afins) 
+- Develop: branch de desenvolvimento (Todas as novas branch devem ser criadas a partir dela)
+- feature/nome-do-cenario: branch de criação de novos cenários (Todos os novos cenarios devem ser criados em uma branch com esse padram de nomenclatura)
+- fix/nome-da-alteração: branch de alteração de algum cenário ou configuração do projeto(Todas as novas alteração devem ser criadas em uma branch com esse padram de nomenclatura)
+
+### 🛠 Tags de cenários:
+As seguintes Tags serão ultilizadas para rodar os cenários de teste:
+- regressivo: roda todos os cenários automatizados.
+- smoke: roda os principais cenários automatizados.
+- login: roda apenas os cenários de login.
+- compra: roda apenas os cenários de compra
