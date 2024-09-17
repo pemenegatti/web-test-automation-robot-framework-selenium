@@ -55,7 +55,7 @@ jobs:
       - name: Run tests
         env:
           EXECUTION_ENVIRONMENT: ${{ secrets.ENV_HML }}
-          BASE_URL: ${{ github.event.inputs.BASE_URL }}
+          BASE_URL: ${{ github.event.inputs.BASE_URL || secrets.BASE_URL }}
           HEADLESS: 'True'
         run: |
           if [ -z ${{ github.event.inputs.test_tag }} ]; then
