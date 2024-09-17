@@ -12,7 +12,7 @@ on:
         default: 'https://www.saucedemo.com/'
       test_tag:
         description: 'Tag dos cenários de teste a serem executados'
-        required: false
+        required: true
         default: 'login'  # Tag padrão
 
 jobs:
