@@ -12,8 +12,8 @@ on:
         default: 'https://www.saucedemo.com/'
       test_tag:
         description: 'Tag dos cenários de teste a serem executados'
-        required: false
-        # default: 'login'  # Tag padrão
+        required: true
+        default: 'login'  # Tag padrão
 
 jobs:
   Chrome:
@@ -58,7 +58,7 @@ jobs:
           BASE_URL: ${{ github.event.inputs.BASE_URL }}
           HEADLESS: 'True'
         run: |
-          if [ -z "${{ github.event.inputs.test_tag }}" ]; then
+          if [ -z ${{ github.event.inputs.test_tag }} ]; then
             echo "Running all tests"
             robot -d tests/results tests
           else
@@ -143,7 +143,7 @@ jobs:
           BASE_URL: ${{ github.event.inputs.BASE_URL }}
           HEADLESS: 'True'
         run: |
-          if [ -z "${{ github.event.inputs.test_tag }}" ]; then
+          if [ -z ${{ github.event.inputs.test_tag }} ]; then
             echo "Running all tests"
             robot -d tests/results tests
           else
