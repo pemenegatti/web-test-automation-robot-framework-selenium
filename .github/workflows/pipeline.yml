@@ -2,7 +2,7 @@ name: Robot Framework Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
     inputs:
       BASE_URL:
