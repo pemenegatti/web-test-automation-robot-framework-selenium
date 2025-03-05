@@ -1,4 +1,4 @@
-name: Robot Framework Test
+name: Rodar Cenários Paralelos Web
 
 on:
   push:
