@@ -52,8 +52,8 @@ jobs:
       - name: Notify Slack - Start
         run: |
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal 🚀 Pipeline de testes no Chrome iniciado por '${{ github.actor }}' começou!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          -d "{\"text\": \"@all 🤖 Pipeline de testes no Chrome iniciado! 🚀\n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}**\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
 
       - name: Run tests
         env:
@@ -63,10 +63,10 @@ jobs:
         run: |
           if [ -z "${{ github.event.inputs.test_tag }}" ]; then
             echo "Running all tests"
-            robot -d tests/results tests
+            pabot -d tests/results tests
           else
             echo "Running tests with tag: ${{ github.event.inputs.test_tag }}"
-            robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
+            pabot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
           fi
 
       - name: Robot Reporter
@@ -88,16 +88,16 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ✅ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório!>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
+          -d "{\"text\": \"@all ✅ Pipeline de testes no Chrome: \n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}** finalizado com sucesso! \n🔹 <${REPORT_URL}|Veja o relatório!>\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
+      
       - name: Notify Slack - Failure
         if: failure()
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Chrome iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          -d "{\"text\": \"@all ❌ Pipeline de testes no Chrome: \n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}** falhou! \n🔹 <${REPORT_URL}|Veja o relatório!>\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
 
       # - name: Store Test Results in Database
       #   if: always()
@@ -137,8 +137,8 @@ jobs:
       - name: Notify Slack - Start
         run: |
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal 🚀 Pipeline de testes no Firefox iniciado por '${{ github.actor }}' começou!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          -d "{\"text\": \"@all 🤖 Pipeline de testes no Firefox iniciado! 🚀\n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}**\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
 
       - name: Run tests
         env:
@@ -148,10 +148,10 @@ jobs:
         run: |
           if [ -z "${{ github.event.inputs.test_tag }}" ]; then
             echo "Running all tests"
-            robot -d tests/results tests
+            pabot -d tests/results tests
           else
             echo "Running tests with tag: ${{ github.event.inputs.test_tag }}"
-            robot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
+            pabot -d tests/results --include ${{ github.event.inputs.test_tag }} tests
           fi
 
       - name: Robot Reporter
@@ -173,16 +173,16 @@ jobs:
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ✅ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' finalizado com sucesso! <'"$REPORT_URL"'|Veja o relatório!>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
+          -d "{\"text\": \"@all ✅ Pipeline de testes no Firefox: \n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}** finalizado com sucesso! \n🔹 <${REPORT_URL}|Veja o relatório!>\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
+        
       - name: Notify Slack - Failure
         if: failure()
         run: |
           REPORT_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -X POST -H 'Content-Type: application/json' \
-          -d '{"text": "@canal ❌ Pipeline de testes no Firefox iniciado por '${{ github.actor }}' falhou! <'"$REPORT_URL"'|Veja o relatório e o que falhou!>"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          -d "{\"text\": \"@all ❌ Pipeline de testes no Firefox: \n🔹 Iniciado por: **${{ github.actor }}**\n🔹 Branch: **${{ github.ref_name }}**\n🔹 Ambiente: **${{ github.event.inputs.EXECUTION_ENVIRONMENT }}**\n🔹 Cenarios: **${{ github.event.inputs.test_tag }}** falhou! \n🔹 <${REPORT_URL}|Veja o relatório!>\"}" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
 
       # - name: Store Test Results in Database
       #   if: always()

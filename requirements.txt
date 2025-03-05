@@ -3,3 +3,4 @@ robotframework-seleniumlibrary~=6.1.3
 robotframework~=6.1.1
 robotframework-faker~=5.0.0
 psycopg2-binary~=2.9.9
+robotframework-pabot~=2.18.0
