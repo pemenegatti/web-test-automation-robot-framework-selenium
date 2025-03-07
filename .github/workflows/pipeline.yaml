@@ -63,9 +63,13 @@ jobs:
           edge-version: stable
 
       - name: Setup Edge WebDriver
-        uses: nanasess/setup-microsoft-edge@v1
-        with:
-          edge-version: stable
+        run: |
+          EDGEDRIVER_VERSION=$(microsoft-edge --version | awk '{print $3}')
+          echo "Baixando Edge WebDriver versão $EDGEDRIVER_VERSION..."
+          curl -O https://msedgedriver.azureedge.net/$EDGEDRIVER_VERSION/edgedriver_linux64.zip
+          unzip edgedriver_linux64.zip
+          sudo mv msedgedriver /usr/local/bin/
+          rm edgedriver_linux64.zip
 
       - name: Install dependencies
         run: |
@@ -145,4 +149,3 @@ jobs:
       #     python save_test_results.py
 
   
-      
