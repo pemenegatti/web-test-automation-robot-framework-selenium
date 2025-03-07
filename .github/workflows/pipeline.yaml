@@ -81,9 +81,16 @@ jobs:
           rm edgedriver_linux64.zip
 
       - name: Enable Safari Remote Automation
-        if: ${{ contains(github.event.inputs.BROWSER, 'safari') && contains(github.event.inputs.SO, 'macos-latest') }}
+        if: ${{ contains(github.event.inputs.BROWSER, 'safari') && contains(github.event.inputs.SO, 'macos') }}
         run: |
           sudo safaridriver --enable
+
+      - name: Install Docker on macOS
+        if: ${{ contains(github.event.inputs.SO, 'macos') }}
+        run: |
+          brew install --cask docker
+          open --background -a Docker
+          while ! docker system info > /dev/null 2>&1; do sleep 1; done
 
       - name: Install dependencies
         run: |
