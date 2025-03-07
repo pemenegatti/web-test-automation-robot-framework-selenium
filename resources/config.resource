@@ -51,7 +51,7 @@ Setup Test Environment
 
 Setup Web Environment
     IF    ${HEADLESS}
-        Open Browser   about:blank	    ${BROWSER}    options=add_argument("--headless"); add_argument("--no-sandbox"); add_argument("--window-size=1920,1080")
+        Open Browser   about:blank	    ${BROWSER}    options=add_argument("--headless"); add_argument("--no-sandbox"); add_argument("--window-size=1920,1080"); add_argument("--disable-dev-shm-usage")
     ELSE
         Open Browser   about:blank	    ${BROWSER}
     END
