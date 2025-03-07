@@ -81,7 +81,7 @@ jobs:
           rm edgedriver_linux64.zip
 
       - name: Enable Safari Remote Automation
-        if: ${{ contains(github.event.inputs.BROWSER, 'safari') }} && ${{ contains(github.event.inputs.SO, 'macos-latest') }}
+        if: ${{ contains(github.event.inputs.BROWSER, 'safari') && contains(github.event.inputs.SO, 'macos-latest') }}
         run: |
           sudo safaridriver --enable
 
