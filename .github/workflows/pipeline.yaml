@@ -27,13 +27,13 @@ on:
         default: 'false'
 
       SO:
-        description: 'Infome o Sistema Operacional desejado (ubuntu-latest/macos-latest)'
+        description: 'Infome o Sistema Operacional desejado (ubuntu/macos)'
         required: true
-        default: 'macos-latest'
+        default: 'ubuntu'
 
 jobs:
   Teste:
-    runs-on: ${{  github.event.inputs.SO}}
+    runs-on: ${{ github.event.inputs.SO }}-latest
     continue-on-error: true
     
     env:
