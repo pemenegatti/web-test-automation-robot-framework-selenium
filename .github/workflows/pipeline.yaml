@@ -20,11 +20,11 @@ on:
       test_tag:
         description: 'Tag dos cenários de teste a serem executados'
         required: true
-        default: 'login'  # Tag padrão
+        default: 'regressivo'  # Tag padrão
       parallel_execution:
         description: 'Executar testes em paralelo (true/false)'
         required: true
-        default: 'true'
+        default: 'false'
 
 jobs:
   Teste:
