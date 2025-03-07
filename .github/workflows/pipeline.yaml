@@ -26,9 +26,14 @@ on:
         required: true
         default: 'false'
 
+      SO:
+        description: 'Infome o Sistema Operacional desejado (ubuntu-latest/macos-latest)'
+        required: true
+        default: 'macos-latest'
+
 jobs:
   Teste:
-    runs-on: ubuntu-latest
+    runs-on: ${{  github.event.inputs.SO}}
     continue-on-error: true
     
     env:
@@ -74,6 +79,11 @@ jobs:
           unzip edgedriver_linux64.zip
           sudo mv msedgedriver /usr/local/bin/
           rm edgedriver_linux64.zip
+
+      - name: Enable Safari Remote Automation
+        if: ${{ contains(github.event.inputs.BROWSER, 'safari') }} && ${{ contains(github.event.inputs.SO, 'macos-latest') }}
+        run: |
+          sudo safaridriver --enable
 
       - name: Install dependencies
         run: |
