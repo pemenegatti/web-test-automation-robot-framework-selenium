@@ -88,10 +88,10 @@ jobs:
       - name: Install Docker on macOS
         if: ${{ contains(github.event.inputs.SO, 'macos') }}
         run: |
-          brew install docker docker-compose
-          mkdir -p ~/.docker
-          echo '{ "cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"] }' > ~/.docker/config.json
-          brew services start docker
+          brew install --cask docker
+          open -a Docker
+          sleep 10  # Dá tempo para o Docker iniciar
+          while ! docker system info > /dev/null 2>&1; do sleep 2; done
 
       - name: Install dependencies
         run: |
