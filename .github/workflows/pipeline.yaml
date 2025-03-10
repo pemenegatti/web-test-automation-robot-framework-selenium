@@ -161,7 +161,7 @@ jobs:
           "${{ secrets.SLACK_WEBHOOK_URL }}"
 
       - name: Store Test Results in Database
-        if: ${{ github.event.inputs.enviar_results_database }}" == "true"
+        if: ${{ contains(github.event.inputs.enviar_results_database, 'true') && always() }}
         run: |
           python save_test_results.py
 
