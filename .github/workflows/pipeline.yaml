@@ -88,8 +88,10 @@ jobs:
       - name: Install Docker on macOS
         if: ${{ contains(github.event.inputs.SO, 'macos') }}
         run: |
-          brew install colima docker docker-compose
-          colima start
+          brew install docker docker-compose
+          mkdir -p ~/.docker
+          echo '{ "cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"] }' > ~/.docker/config.json
+          brew services start docker
 
       - name: Install dependencies
         run: |
