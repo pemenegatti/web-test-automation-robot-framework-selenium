@@ -126,14 +126,15 @@ jobs:
             echo "Running tests with tag: ${{ github.event.inputs.test_tag }}"
             "$EXECUTOR" -d tests/results --include "${{ github.event.inputs.test_tag }}" tests
           fi
-      - name: Install Docker (macOS)
-        if: ${{ contains(github.event.inputs.SO, 'macos') }}
-        run: |
-          brew install --cask docker
-          open --background -a Docker
-          while ! docker info >/dev/null 2>&1; do sleep 1; done
+      # - name: Install Docker (macOS)
+      #   if: ${{ contains(github.event.inputs.SO, 'macos') }}
+      #   run: |
+      #     brew install --cask docker
+      #     open --background -a Docker
+      #     while ! docker info >/dev/null 2>&1; do sleep 1; done
 
       - name: Robot Reporter
+        if: ${{ contains(github.event.inputs.SO, 'ubuntu') }}
         uses: joonvena/robotframework-reporter-action@v2.4
         if: always()
         with:
