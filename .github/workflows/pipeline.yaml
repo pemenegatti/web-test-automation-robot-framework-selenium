@@ -30,7 +30,7 @@ on:
         required: true
         default: 'ubuntu'
       enviar_results_database:
-        description: 'Enviar resultados dos restes para data base (true/false)'
+        description: 'Enviar resultados dos Testes para data base (true/false)'
         required: false
         default: 'false'
 
