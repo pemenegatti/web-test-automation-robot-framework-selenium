@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation    Arquivo responsavel pelas configurações iniciais.
-Library          OperatingSystem
-Resource         common.resource
+Resource         base.resource
 Variables        config/config.yaml
 
 
