@@ -1,4 +1,4 @@
-USERNAME: //input[@id="user-name"]
-PASSWORD: //input[@id="password"]
-LOGIN: //input[@id="login-button"]
-SWAG_LABS: //div[@class="app_logo"]
+USERNAME:   id:user-name
+PASSWORD:   id:password
+LOGIN:      id:login-button
+SWAG_LABS: css:.app_logo
