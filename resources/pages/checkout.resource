@@ -4,15 +4,14 @@ Variables        ../locators/checkout_locator.yaml
 
 *** Keywords ***
 Preencho as informacoes necessarias
-    Wait Until Page Contains Element    ${HEADER_SECONDARY}
-    ${FIRST_NAME_FAKE}                   FakerLibrary.Name
-    Input Text    ${FIRST_NAME}    ${FIRST_NAME_FAKE} 
-    ${LAST_NAME_FAKE}                   FakerLibrary.Name
-    Input Text    ${LAST_NAME}    ${LAST_NAME_FAKE}
-    ${CODIGO_POSTAL_FAKE}         FakerLibrary.Postalcode
-    Input Text    ${POSTAL_CODE}    ${CODIGO_POSTAL_FAKE}
-    Sleep    1
+    Wait Until Element Is Visible    ${HEADER_SECONDARY}
+    ${fake_first_name}=     FakerLibrary.First Name
+    ${fake_last_name}=      FakerLibrary.Last Name
+    ${fake_postal_code}=    FakerLibrary.Postalcode
+    Input Text    ${FIRST_NAME}     ${fake_first_name}
+    Input Text    ${LAST_NAME}      ${fake_last_name}
+    Input Text    ${POSTAL_CODE}    ${fake_postal_code}
 
 Vou para pagina de finalizacao
-    Run Keyword Until Success    Click Element                 ${BTN_CONTINUE}
-    Sleep    1
+    Run Keyword Until Success    Click Element    ${BTN_CONTINUE}
+    Wait Until Element Is Not Visible    ${HEADER_SECONDARY}

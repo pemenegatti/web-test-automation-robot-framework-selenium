@@ -4,9 +4,7 @@ Variables        ../locators/finalizar_locator.yaml
 
 *** Keywords ***
 Finalizo a compra
-    Wait Until Page Contains Element                      ${CART_ITEM}
-    Sleep    1
-    Click Button                                          ${BTN_FINISH}
-    Wait Until Page Contains Element                      ${PEDIDO_CONCLUIDO}
-    Wait Until Page Contains Element                      ${BTN_VOLTAR_PARA_HOME}
-    Sleep    1
+    Wait Until Element Is Visible    ${CART_ITEM}
+    Click Button                     ${BTN_FINISH}
+    Wait Until Element Is Visible    ${PEDIDO_CONCLUIDO}
+    Wait Until Element Is Visible    ${BTN_VOLTAR_PARA_HOME}

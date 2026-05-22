@@ -2,11 +2,14 @@ CONFIG:
   DEFAULT:
     EXECUTION_ENVIRONMENT: HML
     HEADLESS: False # True or False
+    USERNAME: standard_user
+    PASSWORD: secret_sauce
+    PRODUCT_ID: sauce-labs-backpack  # ID do produto a ser adicionado ao carrinho
   PROD:
     BASE_URL: https://www.saucedemo.com/
     BROWSER: firefox
-    TIMEOUT:  15
+    TIMEOUT: 15
   HML:
     BASE_URL: https://www.saucedemo.com/
     BROWSER: chrome
-    TIMEOUT:  20
+    TIMEOUT: 20

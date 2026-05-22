@@ -1,2 +1,2 @@
-ADD_TO_CART: //button[@id="add-to-cart-sauce-labs-backpack"]
-GO_TO_CART: //div[@id="shopping_cart_container"]
+# O ID do botão é montado dinamicamente com base no PRODUCT_ID definido no config.yaml
+GO_TO_CART: id:shopping_cart_container

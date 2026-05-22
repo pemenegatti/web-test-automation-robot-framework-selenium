@@ -2,6 +2,7 @@
 Documentation    Arquivo responsavel pelo compartilhamentos de resources
 Library          SeleniumLibrary
 Library          FakerLibrary
+Library          ../libs/utils.py
 Resource         config.resource
 Resource         utils.resource
 Resource         ../resources/pages/login.resource
