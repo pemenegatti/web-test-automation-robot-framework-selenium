@@ -11,4 +11,4 @@ Adicono um produto no carrinho
 
 Vou para pagina do carrinho
     Run Keyword Until Success    Click Element    ${GO_TO_CART}
-    Wait Until Element Is Visible    ${GO_TO_CART}
+    Wait Until Page Contains Element    css:.cart_list

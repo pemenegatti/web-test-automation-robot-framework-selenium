@@ -1,4 +1,5 @@
-USERNAME:   id:user-name
-PASSWORD:   id:password
-LOGIN:      id:login-button
-SWAG_LABS: css:.app_logo
+USERNAME:      id:user-name
+PASSWORD:      id:password
+LOGIN:         id:login-button
+SWAG_LABS:     css:.app_logo
+ERROR_MESSAGE: css:[data-test="error"]

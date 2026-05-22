@@ -1,12 +1,10 @@
 *** Settings ***
 Documentation    Arquivo responsavel pelo compartilhamentos de resources
-Library          SeleniumLibrary
-Library          FakerLibrary
-Library          ../libs/utils.py
+Resource         base.resource
 Resource         config.resource
 Resource         utils.resource
-Resource         ../resources/pages/login.resource
-Resource         ../resources/pages/home.resource
-Resource         ../resources/pages/carrinho.resource
-Resource         ../resources/pages/checkout.resource
-Resource         ../resources/pages/finalizar.resource
+Resource         pages/login.resource
+Resource         pages/home.resource
+Resource         pages/carrinho.resource
+Resource         pages/checkout.resource
+Resource         pages/finalizar.resource

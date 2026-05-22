@@ -1,8 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
-Library    ../libs/utils.py
-
-*** Variables ***
+Resource    base.resource
 
 *** Keywords ***
 Run Keyword Until Success

@@ -114,6 +114,9 @@ Disponíveis em todos os testes via `common.resource`:
 
 | Keyword | Argumentos | Quando usar |
 |---|---|---|
+| `Fake First Name` | — | Gera um primeiro nome aleatório |
+| `Fake Last Name` | — | Gera um sobrenome aleatório |
+| `Fake Postal Code` | — | Gera um código postal aleatório |
 | `Scroll To Element` | `locator` | Elemento fora da viewport — faz scroll até ele antes de interagir |
 | `Clear Text Element` | `locator`, `locator_type` (padrão: `xpath`) | Limpar campos protegidos com `readonly` ou `disabled` |
 | `Click Text Element` | `locator`, `locator_type` (padrão: `xpath`), `timeout` (padrão: `10`) | Clicar em elemento aguardando ele ficar clicável |

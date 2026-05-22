@@ -1,5 +1,6 @@
-HEADER_SECONDARY: xpath://span[contains(text(),'Your Information')]
-FIRST_NAME:       id:first-name
-LAST_NAME:        id:last-name
-POSTAL_CODE:      id:postal-code
-BTN_CONTINUE:     id:continue
+HEADER_SECONDARY:  xpath://span[contains(text(),'Your Information')]
+FIRST_NAME:        id:first-name
+LAST_NAME:         id:last-name
+POSTAL_CODE:       id:postal-code
+BTN_CONTINUE:      id:continue
+ERROR_MESSAGE:     css:[data-test="error"]
