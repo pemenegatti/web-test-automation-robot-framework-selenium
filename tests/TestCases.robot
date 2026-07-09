@@ -94,8 +94,7 @@ Cenário 09: Checkout sem preencher o sobrenome
     And adicono um produto no carrinho
     And vou para pagina do carrinho
     And vou para pagina de checkout
-    When Wait Until Element Is Visible    ${HEADER_SECONDARY}
-    And Input Text    id:first-name    João
+    When Input Text    id:first-name    João
     And tento continuar o checkout sem preencher os campos
     Then erro de checkout e exibido    Error: Last Name is required
 
@@ -106,8 +105,7 @@ Cenário 10: Checkout sem preencher o CEP
     And adicono um produto no carrinho
     And vou para pagina do carrinho
     And vou para pagina de checkout
-    When Wait Until Element Is Visible    ${HEADER_SECONDARY}
-    And Input Text    id:first-name    João
+    When Input Text    id:first-name    João
     And Input Text    id:last-name     Silva
     And tento continuar o checkout sem preencher os campos
     Then erro de checkout e exibido    Error: Postal Code is required

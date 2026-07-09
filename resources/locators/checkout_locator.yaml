@@ -1,4 +1,4 @@
-HEADER_SECONDARY:  xpath://span[contains(text(),'Your Information')]
+HEADER_SECONDARY:  css:.header_secondary_container
 FIRST_NAME:        id:first-name
 LAST_NAME:         id:last-name
 POSTAL_CODE:       id:postal-code
