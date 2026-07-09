@@ -4,7 +4,7 @@ Variables        ../locators/checkout_locator.yaml
 
 *** Keywords ***
 Preencho as informacoes necessarias
-    Wait Until Element Is Visible    ${HEADER_SECONDARY}
+    Wait Until Element Is Visible    ${FIRST_NAME}
     ${fake_first_name}=     Fake First Name
     ${fake_last_name}=      Fake Last Name
     ${fake_postal_code}=    Fake Postal Code
@@ -13,7 +13,7 @@ Preencho as informacoes necessarias
     Input Text    ${POSTAL_CODE}    ${fake_postal_code}
 
 Tento continuar o checkout sem preencher os campos
-    Wait Until Element Is Visible    ${HEADER_SECONDARY}
+    Wait Until Element Is Visible    ${FIRST_NAME}
     Click Element                    ${BTN_CONTINUE}
 
 Erro de checkout e exibido
@@ -23,4 +23,4 @@ Erro de checkout e exibido
 
 Vou para pagina de finalizacao
     Run Keyword Until Success    Click Element    ${BTN_CONTINUE}
-    Wait Until Element Is Not Visible    ${HEADER_SECONDARY}
+    Wait Until Element Is Visible    id:finish

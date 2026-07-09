@@ -6,3 +6,4 @@ Variables        ../locators/carrinho_locator.yaml
 Vou para pagina de checkout
     Wait Until Element Is Visible    ${CART_LIST}
     Click Button                     ${BTN_CHECKOUT}
+    Wait Until Element Is Visible    id:first-name
