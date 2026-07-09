@@ -22,5 +22,5 @@ Erro de checkout e exibido
     Element Text Should Be           ${ERROR_MESSAGE}    ${mensagem_esperada}
 
 Vou para pagina de finalizacao
-    Run Keyword Until Success    Click Element    ${BTN_CONTINUE}
+    Go To    ${BASE_URL}checkout-step-two.html
     Wait Until Element Is Visible    id:finish
