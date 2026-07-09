@@ -1,2 +1,1 @@
-# O ID do botão é montado dinamicamente com base no PRODUCT_ID definido no config.yaml
-GO_TO_CART: css:.shopping_cart_link
+GO_TO_CART: //a[@class="shopping_cart_link"]

@@ -1,6 +1,6 @@
-HEADER_SECONDARY:  css:.header_secondary_container
-FIRST_NAME:        id:first-name
-LAST_NAME:         id:last-name
-POSTAL_CODE:       id:postal-code
-BTN_CONTINUE:      id:continue
-ERROR_MESSAGE:     css:[data-test="error"]
+HEADER_SECONDARY: //span[contains(text(),'Your Information')]
+FIRST_NAME:       //input[@id="first-name"]
+LAST_NAME:        //input[@id="last-name"]
+POSTAL_CODE:      //input[@id="postal-code"]
+BTN_CONTINUE:     //input[@id="continue"]
+ERROR_MESSAGE:    //*[@data-test="error"]

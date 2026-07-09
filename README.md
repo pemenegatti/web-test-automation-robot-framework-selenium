@@ -149,19 +149,3 @@ Click Text Element        //button[@id="confirmar"]    xpath    15
 | `develop`                   | Base para novas branches                         |
 | `feature/nome-do-cenario`   | Criação de novos cenários                        |
 | `fix/nome-da-alteracao`     | Correções e ajustes                              |
-
----
-
-## 🗄 Salvar resultados no banco de dados
-
-O script `save_test_results.py` lê o `output.xml` e insere os resultados em um banco PostgreSQL. Configure as variáveis de ambiente antes de executar:
-
-```bash
-export DB_HOST=localhost
-export DB_PORT=5432
-export DB_NAME=seu_banco
-export DB_USER=seu_usuario
-export DB_PASSWORD=sua_senha
-
-python save_test_results.py
-```
