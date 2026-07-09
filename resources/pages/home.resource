@@ -11,5 +11,5 @@ Adicono um produto no carrinho
 
 Vou para pagina do carrinho
     Wait Until Element Is Visible    ${GO_TO_CART}
-    Click Element                    ${GO_TO_CART}
-    Wait Until Location Contains     cart.html
+    Click Link                       ${GO_TO_CART}
+    Wait Until Page Contains Element    id:checkout
