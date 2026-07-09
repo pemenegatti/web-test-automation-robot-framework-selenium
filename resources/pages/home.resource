@@ -1,6 +1,7 @@
 *** Settings ***
 Resource         ../common.resource
 Variables        ../locators/home_locator.yaml
+Variables        ../locators/carrinho_locator.yaml
 
 *** Keywords ***
 Adicono um produto no carrinho
@@ -10,5 +11,5 @@ Adicono um produto no carrinho
     Click Button                     ${add_to_cart_btn}
 
 Vou para pagina do carrinho
-    Go To    ${BASE_URL}cart.html
-    Wait Until Page Contains Element    id:checkout
+    Run Keyword Until Success    Click Element    ${GO_TO_CART}
+    Wait Until Page Contains Element    ${CART_LIST}
