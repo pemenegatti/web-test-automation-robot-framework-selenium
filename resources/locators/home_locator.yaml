@@ -1,2 +1,2 @@
 # O ID do botão é montado dinamicamente com base no PRODUCT_ID definido no config.yaml
-GO_TO_CART: id:shopping_cart_container
+GO_TO_CART: css:.shopping_cart_link
