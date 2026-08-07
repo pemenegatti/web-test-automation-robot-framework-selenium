@@ -149,3 +149,16 @@ Click Text Element        //button[@id="confirmar"]    xpath    15
 | `develop`                   | Base para novas branches                         |
 | `feature/nome-do-cenario`   | Criação de novos cenários                        |
 | `fix/nome-da-alteracao`     | Correções e ajustes                              |
+
+---
+
+
+## 📝 Licença
+
+Este projeto é apenas para fins educacionais e de demonstração.
+
+---
+
+## 👤 Autor
+
+**Pedro Menegatti** - [@pemenegatti](https://github.com/pemenegatti)
